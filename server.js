@@ -39,19 +39,23 @@ app.set('view engine', 'hbs')
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
 
-// var Athlete = mongoose.model('Athlete', yourSchema);
 
 // app.use(app.router); // **this line will be removed**
 
 
 // Routes
 app.get('/', (req, res) => {
-
   res.render("posts-index.hbs");
 })
 
 
-app.get('/posts/new', (req, res) => {
+// app.get('/posts/new', (req, res) => {
+// 
+//   res.render("post-new.hbs");
+// })
+
+
+app.get('/post/new', (req, res) => {
 
   res.render("post-new.hbs");
 })

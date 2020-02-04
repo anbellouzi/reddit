@@ -6,6 +6,17 @@ const app = express();
 
 // Setup
 
+/* Mongoose Connection */
+const mongoose = require("mongoose");
+
+mongoose.Promise = global.Promise;
+mongoose.connect(
+  "mongodb://localhost/reddit-db",
+  { useNewUrlParser: true }
+);
+mongoose.connection.on("error", console.error.bind(console, "MongoDB connection Error:"));
+mongoose.set("debug", true);
+
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
@@ -28,6 +39,7 @@ app.set('view engine', 'hbs')
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
 
+// var Athlete = mongoose.model('Athlete', yourSchema);
 
 // app.use(app.router); // **this line will be removed**
 
@@ -35,7 +47,7 @@ require('./data/reddit-db');
 // Routes
 app.get('/', (req, res) => {
 
-  res.render("index.hbs");
+  res.render("posts-index.hbs");
 })
 
 

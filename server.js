@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 
 
 // app.get('/posts/new', (req, res) => {
-// 
+//
 //   res.render("post-new.hbs");
 // })
 
@@ -61,7 +61,7 @@ app.get('/post/new', (req, res) => {
 })
 
 
-
+module.exports = app;
 
 
 

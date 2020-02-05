@@ -14,6 +14,17 @@ module.exports = (app) => {
 
   })
 
+  // SUBREDDIT
+  app.get("/n/:subreddit", function(req, res) {
+    Post.find({ subreddit: req.params.subreddit })
+    .then(posts => {
+      res.render("posts-index", { posts });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  });
+
   // CREATE
   app.post('/post/new', (req, res) => {
     // INSTANTIATE INSTANCE OF POST MODEL

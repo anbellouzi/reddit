@@ -29,7 +29,6 @@ module.exports = (app) => {
   app.post('/post/new', (req, res) => {
     // INSTANTIATE INSTANCE OF POST MODEL
     const post = new Post(req.body);
-
     // SAVE INSTANCE OF POST MODEL TO DB
     post.save((err, post) => {
       // REDIRECT TO THE ROOT
@@ -41,14 +40,13 @@ module.exports = (app) => {
     var id = req.params.id
     // LOOK UP THE POST
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
-
-      Post.findById(id)
-      .then(post => {
-        res.render("posts-show", { post });
+      
+      // LOOK UP THE POST
+      Post.findById(req.params.id).populate('comments').then((post) => {
+        res.render('posts-show', { post })
+      }).catch((err) => {
+        console.log(err.message)
       })
-      .catch(err => {
-        console.log(err.message);
-      });
     }
   });
 

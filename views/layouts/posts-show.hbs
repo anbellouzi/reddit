@@ -4,3 +4,16 @@
     <p>{{post.summary}}</p>
   </div>
 </div>
+<div class="row">
+  <form action="/post/{{post._id}}/comments" method="post">
+    <textarea class='form-control' name="content" placeholder="Comment"></textarea>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>
+<div class="row">
+  {{#each post.comments}}
+    <p>{{this.content}}</p>
+  {{/each}}
+</div>

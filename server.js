@@ -2,10 +2,17 @@ const express = require('express');
 var path = require('path');
 var hbs = require('express-handlebars');
 var routes = require('./routes');
+
+var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+
 const app = express();
 
-// Setup
+require('dotenv').config();
+app.use(cookieParser()); // Add this after you initialize express.
 
+
+// Setup
 /* Mongoose Connection */
 const mongoose = require("mongoose");
 
@@ -39,7 +46,7 @@ app.set('view engine', 'hbs')
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
 require('./controllers/comments.js')(app);
-
+require('./controllers/auth.js')(app);
 
 // app.use(app.router); // **this line will be removed**
 
@@ -53,6 +60,8 @@ app.get('/post/new', (req, res) => {
 
   res.render("post-new.hbs");
 })
+
+
 
 module.exports = app;
 

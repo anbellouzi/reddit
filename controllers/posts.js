@@ -3,17 +3,17 @@ const User = require("../models/user");
 
 module.exports = (app) => {
 
-  app.get('/', (req, res) => {
-
+  app.get("/", (req, res) => {
+    var currentUser = req.user;
+  
     Post.find({})
-    .then(posts => {
-      res.render("posts-index", { posts });
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
-
-  })
+      .then(posts => {
+        res.render("posts-index", { posts, currentUser });
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  });
 
   // SUBREDDIT
   app.get("/n/:subreddit", function(req, res) {
@@ -27,14 +27,16 @@ module.exports = (app) => {
   });
 
   // CREATE
-  app.post('/post/new', (req, res) => {
-    // INSTANTIATE INSTANCE OF POST MODEL
-    const post = new Post(req.body);
-    // SAVE INSTANCE OF POST MODEL TO DB
-    post.save((err, post) => {
-      // REDIRECT TO THE ROOT
-      return res.redirect(`/`);
-    })
+  app.post("/post/new", (req, res) => {
+    if (req.user) {
+      var post = new Post(req.body);
+
+      post.save(function(err, post) {
+        return res.redirect(`/`);
+      });
+    } else {
+      return res.status(401); // UNAUTHORIZED
+    }
   });
 
   app.get("/posts/:id", function(req, res) {

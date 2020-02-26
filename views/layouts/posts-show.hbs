@@ -13,8 +13,11 @@
     </div>
   </form>
 </div>
-<div class="row">
+<div class="row border w-50">
   {{#each post.comments}}
-    <p>{{this.content}}</p>
+    
+    
+    <p class=" text-dark m-1 ">Author: {{this.author.username}}</p>
+    <p class="mt-5 ml-5 ">{{this.content}}</p>
   {{/each}}
 </div>

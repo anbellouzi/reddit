@@ -6,7 +6,6 @@ chai.use(chaiHttp);
 
 // Agent that will keep track of our cookies
 const agent = chai.request.agent(server);
-
 const User = require("../models/user");
 
 describe("User", function() {
@@ -25,15 +24,30 @@ describe("User", function() {
             .post("/sign-up")
             .send({ username: "testone", password: "password" })
             .end(function(err, res) {
-                // console.log(res.body);
                 res.should.have.status(200);
-                // console.log("__________________")
-                // console.log(res)
-                // console.log("__________________")
-                // agent.should.have.cookie("nToken");
-
                 done();
             });
+        });
+    });
+
+    // login
+    it("should be able to login", function(done) {
+        agent
+        .post("/login")
+        .send({ username: "testone", password: "password" })
+        .end(function(err, res) {
+            res.should.have.status(200);
+            agent.should.have.cookie("nToken");
+            done();
+        });
+    });
+
+    // logout
+    it("should be able to logout", function(done) {
+        agent.get("/logout").end(function(err, res) {
+        res.should.have.status(200);
+        agent.should.not.have.cookie("nToken");
+        done();
         });
     });
 

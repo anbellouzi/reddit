@@ -11,19 +11,6 @@ const app = express();
 require('dotenv').config();
 app.use(cookieParser()); // Add this after you initialize express.
 
-
-// Setup
-/* Mongoose Connection */
-const mongoose = require("mongoose");
-
-mongoose.Promise = global.Promise;
-mongoose.connect(
-  "mongodb://localhost/reddit-db",
-  { useNewUrlParser: true }
-);
-mongoose.connection.on("error", console.error.bind(console, "MongoDB connection Error:"));
-mongoose.set("debug", true);
-
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
@@ -56,11 +43,14 @@ app.engine('hbs', hbs({extname: 'hbs',
               }));
 app.set('views', path.join(__dirname, 'views/layouts'));
 app.set('view engine', 'hbs')
+app.use(express.static(path.join(__dirname, "public")));
+
 
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
 require('./controllers/comments.js')(app);
 require('./controllers/auth.js')(app);
+require('./controllers/replies.js')(app);
 
 // app.use(app.router); // **this line will be removed**
 

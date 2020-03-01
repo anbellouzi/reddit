@@ -52,7 +52,7 @@ module.exports = (app) => {
         return res.status(401); // UNAUTHORIZED
     }
 });
-  // SHOW
+  // SHOW single post 
   app.get("/posts/:id", function (req, res) {
     var currentUser = req.user;
     Post.findById(req.params.id).populate('comments').lean()
@@ -66,10 +66,8 @@ module.exports = (app) => {
 
   // SIGN UP POST
   app.post("/sign-up", (req, res) => {
-
     // Create User
     const user = new User(req.body);
-
     user
       .save()
       .then(user => {

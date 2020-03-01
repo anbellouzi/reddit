@@ -1,0 +1,41 @@
+
+    <div class="actionBox comment-indent">
+        
+        <ul class="commentList">
+            <li>
+                
+                <div class="commenterImage ">
+                  <img src="https://cdn3.iconfinder.com/data/icons/flatastic-4-1/256/user_blue-512.png" />
+                </div>
+                <div class="commentText">
+                    <p class="">{{comment.author.username}}</p>
+                </div>
+                <br>
+                <div class="commentText ">
+                    {{!-- <span class="date sub-text ">on March 5th, 2014</span> --}}
+                    <p class="comment-indent pl-5">{{comment.content}}</p> 
+                </div>
+
+            </li>
+        </ul>
+        <form id="replyForm" class="form-inline" role="form" action="/post/{{postId}}/comments/{{comment._id}}/replies" method="POST">
+            <div class="form-group">
+                <input name="content" class="form-control" id="reply-content" placeholder="Reply"></input>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default">reply</button>
+            </div>
+        </form>
+
+
+         {{#each comment.comments}}
+            {{> comment comment=this postId=../postId}}
+        {{/each}}
+
+        
+    </div>
+
+    
+
+   
+{{!-- credit: https://codepen.io/magnus16/pen/buGiB --}}

@@ -7,7 +7,6 @@ const CommentSchema = new Schema({
   content: { type: String, required: true },
   author : { type: Schema.Types.ObjectId, ref: "User", required: true },
   comments: [{type: Schema.Types.ObjectId, ref: "Comment"}] 
-
 });
 
 
@@ -15,5 +14,6 @@ const CommentSchema = new Schema({
 CommentSchema
     .pre('findOne', Populate('author'))
     .pre('find', Populate('author'))
+    .pre('find', Populate('comments'))
     
 module.exports = mongoose.model("Comment", CommentSchema);

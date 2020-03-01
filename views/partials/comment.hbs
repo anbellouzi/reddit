@@ -1,8 +1,33 @@
 
-    <div class="actionBox comment-indent">
+    <div class="actionBox comment-indent border-left mt-2">
         
         <ul class="commentList">
             <li>
+                <div class="float-left p-3">
+                    <p class="float-right">
+                    <div class="row">
+                        <form class="comment-vote-up" data-id="{{comment._id}}">
+                            <button class="btn btn-light" type="submit">
+                                <img src="https://www.vippng.com/png/detail/7-77884_thumbs-up-thumbs-down-clip-art-at-clker.png" width='20px' alt="">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="row pl-3">
+                        {{#if comment.voteScore }}
+                            {{comment.voteScore}}
+                        {{else}}
+                            0
+                        {{/if}}
+                    </div>
+                    <div class="row">
+                        <form class="comment-vote-down" data-id="{{comment._id}}">
+                            <button class="btn btn-light" type="submit">
+                                <img src="https://www.pngitem.com/pimgs/m/117-1174863_thumbs-dwn-icon-red-th-clip-art-at.png" width='20px' alt="">
+                            </button>
+                        </form>
+                    </div>
+                    </p>
+                </div>
                 
                 <div class="commenterImage ">
                   <img src="https://cdn3.iconfinder.com/data/icons/flatastic-4-1/256/user_blue-512.png" />
@@ -18,7 +43,10 @@
 
             </li>
         </ul>
-        <form id="replyForm" class="form-inline" role="form" action="/post/{{postId}}/comments/{{comment._id}}/replies" method="POST">
+        {{!-- <a href="#" id={{postId}} onclick="reply({{this.id}})">reply</a> --}}
+
+
+        <form name={{postId}} class="form-inline" role="form" action="/post/{{postId}}/comments/{{comment._id}}/replies" method="POST">
             <div class="form-group">
                 <input name="content" class="form-control" id="reply-content" placeholder="Reply"></input>
             </div>

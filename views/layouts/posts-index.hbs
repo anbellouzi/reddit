@@ -29,6 +29,14 @@
                 </button>
             </form>
           </div>
+
+          <div class="col-xs-6 mt-2">
+              {{#if this.voteScore }}
+                  {{this.voteScore}}
+              {{else}}
+                  0
+              {{/if}}
+          </div>
           
           <div class="col-xs-6 ml-2">
             <form class="vote-down" data-id="{{this._id}}">
@@ -36,7 +44,15 @@
                 <img src="https://www.pngitem.com/pimgs/m/117-1174863_thumbs-dwn-icon-red-th-clip-art-at.png" width='20px' alt="">
               </button>
             </form>
+          </div>
+
+            <div class="col-xs-6 mt-2">
+
+              20 comments
+
             </div>
+
+
           </div>
         </li>
       {{/each}}

@@ -24,7 +24,8 @@ app.use(expressValidator());
 var checkAuth = (req, res, next) => {
   console.log("Checking authentication");
   if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
-    req.user = null;
+    // req.user = null;
+    console.log(`User ${req.user} is not logged in`)
   } else {
     var token = req.cookies.nToken;
     var decodedToken = jwt.decode(token, { complete: true }) || {};

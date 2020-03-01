@@ -1,9 +1,13 @@
 
 
-// function reply() {
+// function reply(id) {
     
-//     document.getElementById("reply_button").classList.add('hide');
-//     document.getElementById("replyForm").classList.remove('hide');
-//     document.getElementById("replyForm").classList.add('hide');
-//     alert("asdcas")
+//     // document.getElementById("reply_button").classList.add('hide');
+//     // document.getElementById(id).classList.remove('hide');
+    
+    
+//     // document.getElementById(id).classList.add('show');
+//     document.getElementsByTagName(id).classList.add('show');
+//     document.getElementsByTagName(id).classList.remove('hide');
+//     alert(id)
 // }

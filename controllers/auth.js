@@ -8,19 +8,6 @@ module.exports = (app) => {
     res.render("sign-up");
   });
 
-  // SIGN UP POST
-  app.post("/sign-up", (req, res) => {
-    // Create User
-    const user = new User(req.body);
-    user
-      .save()
-      .then(user => {
-        res.redirect("/");
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-  });
 
   // SIGN UP POST
   app.post("/sign-up", (req, res) => {
@@ -31,7 +18,7 @@ module.exports = (app) => {
       .save()
       .then(user => {
         var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
-        res.redirect("/");
+        res.redirect("/login");
       })
       .catch(err => {
         console.log(err.message);

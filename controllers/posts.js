@@ -5,12 +5,9 @@ module.exports = (app) => {
 
   app.get("/", (req, res) => {
    var currentUser = req.user;
-        // res.render('home', {});
-        console.log(req.cookies);
         Post.find().populate('author')
         .then(posts => {
             res.render('posts-index', { posts, currentUser });
-            // res.render('home', {});
         }).catch(err => {
             console.log(err.message);
         })
@@ -33,7 +30,9 @@ module.exports = (app) => {
     if (req.user) {
         var post = new Post(req.body);
         post.author = req.user._id;
-
+        post.upVotes = [];
+        post.downVotes = [];
+        post.voteScore = 0;
         post
             .save()
             .then(post => {
@@ -64,18 +63,37 @@ module.exports = (app) => {
         });
   });
 
-  // SIGN UP POST
-  app.post("/sign-up", (req, res) => {
-    // Create User
-    const user = new User(req.body);
-    user
-      .save()
-      .then(user => {
-        res.redirect("/");
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+  app.put("/posts/:id/vote-up", function(req, res) {
+    Post.findById(req.params.id).exec(function(err, post) {
+      post.upVotes.push(req.user._id);
+      post.voteScore += 1;
+      if (post.voteScore >= 0) {
+          post.positive = true;
+      }
+      else {
+          post.positive = false;
+      }
+      post.save();
+  
+      res.status(200);
+    });
   });
+  
+  app.put("/posts/:id/vote-down", function(req, res) {
+    Post.findById(req.params.id).exec(function(err, post) {
+        post.downVotes.push(req.user._id);
+        post.voteScore -= 1;
+        if (post.voteScore >= 0) {
+            post.positive = true;
+        }
+        else {
+            post.positive = false;
+        }
+        post.save();
+  
+        res.status(200);
+    });
+  });
+  
 
 };
